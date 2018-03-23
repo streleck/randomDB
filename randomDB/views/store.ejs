@@ -1,0 +1,32 @@
+<h2>Store Stuff Here!</h2>
+
+<form method="post" action="/main/create">
+    <div id="key-value-dump">
+        <label for="key-1">Key Name</label>
+        <input type="text" name="key-1">
+        <label for="value-1">Value</label>
+        <input type="text" name="value-1">
+    </div>
+    <br>
+    <button type="button" id="add-new">Add New Field to This Entry</button>
+    <br>
+    <br>
+    <button type="submit">Enter Entry</button>
+</form>
+
+<script
+    src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+
+<script>
+    var fieldCount = 1;
+    $("#add-new").click(function(){
+        fieldCount++;
+        var newField = '<br><label for="key-' + fieldCount + '">Key Name</label>';
+        newField += '<input type="text" name="key-' + fieldCount + '">';
+        newField += '<label for="value-' + fieldCount + '">Value</label>';
+        newField += '<input type="text" name="value-' + fieldCount + '">'
+        $("#key-value-dump").append(newField);
+    })
+</script>

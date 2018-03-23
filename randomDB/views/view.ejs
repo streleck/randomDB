@@ -1,4 +1,5 @@
 <h2>Look at Stuff Here!</h2>
+<div id="data-dump"></div>
 
 <script
     src="https://code.jquery.com/jquery-3.3.1.js"
@@ -6,7 +7,24 @@
     crossorigin="anonymous"></script>
 
 <script>
+    function displayData(data){
+        for(var i=0; i<data.length; i++){
+            
+            var entry = data[i].document;
+            var newTable = "<div class='table-box'><table><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody>";
+
+            for(field in entry){
+                newTable += "<tr><td>" + field + "</td><td>" + entry[field] + "</td></tr>";
+            };
+
+            newTable += "</tbody><table><a href='" + "/main/delete/" + data[i].id + "'>delete entry</a>"
+
+            newTable += "<a href='" + "/main/edit/" + data[i].id + "' style='margin-left: 25px'>edit entry</a></div>"
+            
+            $("#data-dump").append(newTable);
+        };
+    };
     $.get("/main/getdata", function(data){
-        console.log(data);
-    })
+        displayData(data.data);
+    });
 </script>

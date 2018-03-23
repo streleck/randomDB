@@ -5,9 +5,9 @@
         <% entry.forEach(function(field){ %>
             <div class="field-box">
                 <label for="key-1">Key Name</label>
-                <input type="text" name="key-1" value="<%= field[0]%>">
+                <input type="text" name="key" value="<%= field[0]%>">
                 <label for="value-1">Value</label>
-                <input type="text" name="value-1" value="<%= field[1]%>">
+                <input type="text" name="value" value="<%= field[1]%>">
                 <button type="button" class="delete" style="color:red;font-weight:bold;">X</button>
             </div>
         <% }) %>    
@@ -16,7 +16,7 @@
     <button type="button" id="add-new">Add New Field to This Entry</button>
     <br>
     <br>
-    <button type="submit">Enter Entry</button>
+    <button type="submit">Update Entry</button>
 </form>
 
 <script

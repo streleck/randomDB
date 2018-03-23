@@ -78,10 +78,18 @@ module.exports = {
         })
     },
     update:function(req,res){
-            
-        var data = req.body;
-        //data.id = req.params;
-        Main.update({id: req.params}, {data}).exec(function(err){
+        var data = {};
+        var keys = req.body.key;
+        var values = req.body.value;
+        if(Array.isArray(keys)){
+            for(var i=0; i<req.body.key.length; i++){
+                data[keys[i]] = values[i];
+            }
+        }
+        else{
+            data[keys] = values;
+        }
+        Main.update({'_id': 'ObjectId("' + req.params.id + '")'}, data, {upsert:true}).exec(function(err){
             if(err){
                 res.send(500, {error: "Database Error"});
             }

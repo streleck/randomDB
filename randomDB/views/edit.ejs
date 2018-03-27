@@ -2,21 +2,22 @@
 
 <form method="post" action="/main/update/<%= id %>">
     <div id="key-value-dump">
-        <% entry.forEach(function(field){ %>
+        <% for(key in entry){ %>
+            <% if (key == "createdAt"){ break; } %>
             <div class="field-box">
                 <label for="key-1">Key Name</label>
-                <input type="text" name="key" value="<%= field[0]%>">
+                <input type="text" name="key" value="<%= key %>">
                 <label for="value-1">Value</label>
-                <input type="text" name="value" value="<%= field[1]%>">
+                <input type="text" name="value" value="<%= entry[key]%>">
                 <button type="button" class="delete" style="color:red;font-weight:bold;">X</button>
             </div>
-        <% }) %>    
+        <% } %>   
     </div>
     <br>
     <button type="button" id="add-new">Add New Field to This Entry</button>
     <br>
     <br>
-    <button type="submit">Update Entry</button>
+    <button type="submit" id="submit-update">Update Entry</button>
 </form>
 
 <script
@@ -39,4 +40,12 @@
     $("#key-value-dump").on("click", ".delete", function(){
         $(this).parent().remove();
     })
+
+    $("#submit-update").click(function(){
+        var inputs = $("input");
+        for(var i=0; i<inputs.length; i++){
+            console.log($(inputs[i]).val());
+        }
+    })
+    
 </script>

@@ -13,13 +13,11 @@ module.exports = {
             }
            res.view('view', {entries:entries});
         });
-        
     },
     store:function(req, res){
         res.view('store');    
     },
     create:function(req, res){
-        //console.log(req.body);
         var document = {};
         var key='';
         var value='';
@@ -33,13 +31,13 @@ module.exports = {
                 document[key] = value;
             }
         }
-        Main.create({document}).exec(function(err){
+        Main.create(document).exec(function(err, newThing){
             if(err){
                 res.send(500, {error: "Database Error"});
             }
+            console.log(newThing);
             res.redirect("/main/view");
         })
-        //res.redirect('/main');
     },
     getdata:function(req, res){
         Main.find({}).exec(function(err,data){
@@ -66,35 +64,41 @@ module.exports = {
                 res.send(500, {error: "Database Error"});
             }
             var dataSet = [];
-            for(field in entry.document){
+            //console.log(entry);
+            for(field in entry){
                 var newField = [];
                 newField.push(field);
-                newField.push(entry.document[field]);
+                newField.push(entry[field]);
                 dataSet.push(newField);
             }
-            res.view("edit", {id:req.params.id,entry:dataSet});
+
+            res.view("edit", {id:req.params.id,entry:entry});
 
             return false;
         })
     },
     update:function(req,res){
+        //
         var data = {};
+        console.log(req.body);
         var keys = req.body.key;
         var values = req.body.value;
         if(Array.isArray(keys)){
-            for(var i=0; i<req.body.key.length; i++){
+            for(var i=0; i<keys.length; i++){
                 data[keys[i]] = values[i];
             }
         }
         else{
             data[keys] = values;
         }
-        Main.update({'_id': 'ObjectId("' + req.params.id + '")'}, data, {upsert:true}).exec(function(err){
+        Main.update({id: req.params.id}, data).exec(function(err, updated){
             if(err){
                 res.send(500, {error: "Database Error"});
             }
+            console.log("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq");
+            console.log(updated);
+            console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
             res.redirect("/main/view");
         });
     }
 };
-

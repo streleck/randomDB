@@ -1,5 +1,31 @@
 <h2>Look at Stuff Here!</h2>
-<div id="data-dump"></div>
+<div id="data-dump">
+    
+    <% entries.forEach(function(entry){ %>
+        <div class='table-box'>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+        <%  for(key in entry){ %>
+        <%      if(key == "createdAt"){break;} %>
+                <tr>
+                    <td> <%= key %></td>
+                    <td> <%= entry[key] %></td>
+                </tr>       
+        <% }; %>
+                </tbody>
+            </table>
+            <a href="/main/edit/<%= entry.id %>">edit entry</a> 
+            <a href="/main/delete/<%= entry.id %>" style='margin-left: 25px'>delete entry</a> 
+        </div>
+    <% }) %>
+
+</div>
 
 <script
     src="https://code.jquery.com/jquery-3.3.1.js"
@@ -10,7 +36,7 @@
     function displayData(data){
         for(var i=0; i<data.length; i++){
             
-            var entry = data[i].document;
+            var entry = data[i];
             var newTable = "<div class='table-box'><table><thead><tr><th>Key</th><th>Value</th></tr></thead><tbody>";
 
             for(field in entry){
@@ -24,7 +50,8 @@
             $("#data-dump").append(newTable);
         };
     };
+
     $.get("/main/getdata", function(data){
-        displayData(data.data);
+        //displayData(data.data);
     });
 </script>

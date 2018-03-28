@@ -3,7 +3,7 @@
 <form method="post" action="/main/create">
     <div id="key-value-dump">
         <div class="field-box">
-            <label for="key-1">Key Name</label>
+            <label for="key-1">Key</label>
             <input type="text" name="key-1">
             <label for="value-1">Value</label>
             <input type="text" name="value-1">
@@ -26,7 +26,7 @@
     var fieldCount = 1;
     $("#add-new").click(function(){
         fieldCount++;
-        var newField = '<div class="field-box"><label for="key-' + fieldCount + '">Key Name</label>';
+        var newField = '<div class="field-box"><label for="key-' + fieldCount + '">Key</label>';
         newField += '<input type="text" name="key-' + fieldCount + '">';
         newField += '<label for="value-' + fieldCount + '">Value</label>';
         newField += '<input type="text" name="value-' + fieldCount + '">'

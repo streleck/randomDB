@@ -12,11 +12,13 @@
                 </thead>
                 <tbody>
         <%  for(key in entry){ %>
-        <%      if(key == "createdAt"){break;} %>
+        <%     var dontDisplay = ["createdAt", "updatedAt", "data", "id", "constructor", "toObject", "save", "destroy", "_defineAssociations", "_normalizeAssociations", "_cast", "validate", "toJSON"] %>
+        <%      if(dontDisplay.indexOf(key) === -1){ %>
                 <tr>
                     <td> <%= key %></td>
                     <td> <%= entry[key] %></td>
-                </tr>       
+                </tr>
+        <% } %>       
         <% }; %>
                 </tbody>
             </table>

@@ -8,8 +8,7 @@
                 <label for="key-1">Key Name</label>
                 <input type="text" name="key" value="<%= key %>">
                 <label for="value-1">Value</label>
-                <input type="text" name="value" value="<%= entry[key]%>">
-                <button type="button" class="delete" style="color:red;font-weight:bold;">X</button>
+                <input type="text" name="value" class="value" value="<%= entry[key]%>">
             </div>
         <% } %>   
     </div>
@@ -29,16 +28,17 @@
     var fieldCount = 1;
     $("#add-new").click(function(){
         fieldCount++;
-        var newField = '<div class="field-box"><label for="key-' + fieldCount + '">Key Name</label>';
-        newField += '<input type="text" name="key-' + fieldCount + '">';
-        newField += '<label for="value-' + fieldCount + '">Value</label>';
-        newField += '<input type="text" name="value-' + fieldCount + '">'
+        var newField = '<div class="field-box"><label for="key">Key Name</label>';
+        newField += '<input type="text" name="key">';
+        newField += '<label for="value">Value</label>';
+        newField += '<input type="text" class="value" name="value">'
         newField += '<button type="button" class="delete" style="color:red;font-weight:bold;">X</button></div>';
         $("#key-value-dump").append(newField);
     })
 
     $("#key-value-dump").on("click", ".delete", function(){
         $(this).parent().remove();
+
     })
 
     $("#submit-update").click(function(){
